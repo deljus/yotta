@@ -1,6 +1,7 @@
 import React, {FunctionComponent, ReactNode} from "react"
 import { render } from "@testing-library/react"
-import { Figure, Points } from './index';
+import Card, { Figure, Points } from './index';
+import { COLORS } from './utils';
 
 const wrapSVGElements = (element: ReactNode) => {
     return (
@@ -66,4 +67,62 @@ describe('<Points />', () => {
 
         expect(container.children[0].childElementCount).toBe(4);
     });
+});
+
+describe('<Card />', function () {
+   test('should render circle card', function () {
+       const { container } = render(<Card type="circle" color="yellow" points={3} />);
+
+       const el = container.children[0]
+
+       expect(el.tagName).toBe('svg');
+       expect(el.children[0].tagName).toBe('rect');
+       expect(el.children[1].tagName).toBe('text');
+       expect(el.children[2].tagName).toBe('g');
+       expect(el.children[2].getAttribute('fill')).toBe(COLORS.yellow);
+       expect(el.children[2].children[0].tagName).toBe('circle');
+       expect(el.children[3].children.length).toBe(3);
+   });
+
+    test('should render triangle card', function () {
+        const { container } = render(<Card type="triangle" color="yellow" points={2} />);
+
+        const el = container.children[0]
+
+        expect(el.tagName).toBe('svg');
+        expect(el.children[0].tagName).toBe('rect');
+        expect(el.children[1].tagName).toBe('text');
+        expect(el.children[2].tagName).toBe('g');
+        expect(el.children[2].getAttribute('fill')).toBe(COLORS.yellow);
+        expect(el.children[2].children[0].tagName).toBe('polygon');
+        expect(el.children[3].children.length).toBe(2);
+    });
+
+    test('should render square card', function () {
+        const { container } = render(<Card type="square" color="blue" points={1} />);
+
+        const el = container.children[0]
+
+        expect(el.tagName).toBe('svg');
+        expect(el.children[0].tagName).toBe('rect');
+        expect(el.children[1].tagName).toBe('text');
+        expect(el.children[2].tagName).toBe('g');
+        expect(el.children[2].getAttribute('fill')).toBe(COLORS.blue);
+        expect(el.children[2].children[0].tagName).toBe('rect');
+        expect(el.children[3].children.length).toBe(1);
+    });
+
+    test('should render cross card', function () {
+        const { container } = render(<Card type="square" color="red" points={4} />);
+
+        const el = container.children[0]
+
+        expect(el.tagName).toBe('svg');
+        expect(el.children[0].tagName).toBe('rect');
+        expect(el.children[1].tagName).toBe('text');
+        expect(el.children[2].tagName).toBe('g');
+        expect(el.children[2].getAttribute('fill')).toBe(COLORS.red);
+        expect(el.children[2].children[0].tagName).toBe('rect');
+        expect(el.children[3].children.length).toBe(4);
+    })
 });

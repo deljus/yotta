@@ -57,20 +57,17 @@ export const Points: FC<PointProps> = ({ points, type, r}) => {
     )
 }
 
-    const Card: FC<CardProps> = ({ type, color, points }) => {
-
-    return (
-        <svg width="100%" height="100%" viewBox="0 0 100 100">
-            <rect x="5" y="5" width="90" height="90" className={type} stroke={COLORS[color]} fill="white" rx="10" />
-            <text x={82} y={20} fill={COLORS[color]} fontSize="0.6rem">{points}</text>
-            <g fill={COLORS[color]}>
-                <Figure type={type} r={30} x={50} y={50}/>
-            </g>
-            <g fill="white">
-                <Points type={type} points={points} r={3} />
-            </g>
-        </svg>
-    )
-}
+const Card: FC<CardProps> = ({ type, color, points }) => (
+    <svg width="100%" height="100%" viewBox="0 0 100 100">
+        <rect x="5" y="5" width="90" height="90" className={type} stroke={COLORS[color]} fill="white" rx="10" />
+        <text x={82} y={20} fill={COLORS[color]} fontSize="0.6rem">{points}</text>
+        <g fill={COLORS[color]}>
+            <Figure type={type} r={30} x={50} y={50}/>
+        </g>
+        <g fill="white">
+            <Points type={type} points={points} r={3} />
+        </g>
+    </svg>
+)
 
 export default Card;
